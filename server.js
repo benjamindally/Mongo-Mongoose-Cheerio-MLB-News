@@ -17,6 +17,8 @@ app.set("view engine", "handlebars");
 
 app.use(express.static("public"));
 
+mongoose.connect("mongodb://localhost/mlb-scraper");
+
 var routes = require("./routes/app.js");
 
 app.use(routes);

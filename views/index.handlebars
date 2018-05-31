@@ -1,0 +1,44 @@
+<div class="header jumbotron text-center">
+    {{!--
+    <h1>Graceland Diner</h1>
+    <h3 class="text-center">Eat A Burger, thankyavermuch</h3> --}}
+</div>
+
+<div class="wrapper text-center">
+    {{!--
+    <p class="text-center mx-auto">Enter a burger you want to eat in the form below or click "Munch" to try devour a burger.</p>
+    <form class="create_burger  card text-center">
+        <textarea id="burger_input" type="text"></textarea>
+        <br>
+        <button class="btn btn-primary" id="submit" type="submit">Submit</button>
+    </form> --}}
+    <div class="row">
+        {{!--
+        <div class="col-md-6 text-center">
+            <ul>{{#each burgers}} {{#unless this.devoured}}
+                <li class="burger_wrapper card text-center">
+                    <p>#{{this.ID}}</p>
+                    <p>Burger: {{this.burger}}</p>
+                    <button class="devour btn btn-primary" id={{this.ID}}>Munch</button>
+                </li>
+                {{/unless}} {{/each}}
+            </ul>
+        </div> --}}
+        <div class="col-md-8 text-center mx-auto">
+            <ul>
+                {{#each article}}
+                <li class="card">
+                    <p>{{this.title}}</p>
+                    <p>{{this.author}}</p>
+                    <p>{{this.date}}</p>
+                    <p>{{this.paragraph}}</p>
+                    <p>{{this.link}}</p>
+
+                </li>
+
+                {{/each}}
+            </ul>
+        </div>
+
+    </div>
+</div>

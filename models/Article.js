@@ -14,6 +14,19 @@ var ArticleSchema = new Schema({
     required: true,
   },
 
+  paragraph: {
+    type: String,
+    required: true,
+  },
+
+  author: {
+    type: String,
+  },
+
+  date: {
+    type: String,
+  },
+
   note: {
     type: Schema.Types.ObjectId,
     ref: "Note",
