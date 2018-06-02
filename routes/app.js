@@ -2,6 +2,7 @@ var express = require("express");
 var body = require("body-parser");
 var request = require("request");
 var cheerio = require("cheerio");
+var mongoose = require("mongoose");
 
 var app = express.Router();
 
@@ -62,7 +63,7 @@ app.get("/scrape", function(req, res) {
   });
 });
 
-app.get("/", function(req, res) {
+app.get("/articles", function(req, res) {
   db.Article.find({})
     .then(function(dbArticle) {
       var hbsObject = { article: dbArticle };
@@ -73,10 +74,33 @@ app.get("/", function(req, res) {
       res.json(err);
     });
 });
-app.post("/note", function(req, res) {
-  note.create([req.body.noteInfo], function(result) {
-    res.json(req.body.noteInfo);
-  });
+
+app.get("/articles/:id", function(req, res) {
+  db.Article.findOne({ _id: req.params.id })
+    .populate("note")
+    .then(function(dbArticle) {
+      // hbsObject = { article: dbArticle };
+      // console.log(dbArticle);
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
 });
 
+app.post("/articles/:id", function(req, res) {
+  //console.log(req.body);
+  db.Note.create(req.body).then(function(dbNote) {
+    console.log(dbNote._id);
+    return db.Article.findOneAndUpdate(
+      { _id: req.params.id },
+      { $push: { note: dbNote._id } },
+      { new: true }
+    ).then(function(dbArticle) {
+      // var hbsObject = { note: dbArticle };
+      // res.json(dbArticle);
+    });
+    //res.send("sent note");
+  });
+});
 module.exports = app;
