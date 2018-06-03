@@ -1,6 +1,8 @@
-var mongoose = require("mongoose");
+var mongoose = require("../config/config.js");
 
 var Schema = mongoose.Schema;
+
+var noteSchema = require("./Note");
 
 var ArticleSchema = new Schema({
   title: {

@@ -45,4 +45,13 @@ $(function() {
     $("#noteModal").modal("hide");
     window.location = "/articles";
   }
+
+  $("#scraper").on("click", function(event) {
+    console.log("scraped");
+    event.preventDefault;
+    $.ajax({
+      mthod: "GET",
+      url: "/scrape",
+    }).then(function(data) {});
+  });
 });

@@ -2,7 +2,7 @@ var express = require("express");
 var body = require("body-parser");
 var request = require("request");
 var cheerio = require("cheerio");
-var mongoose = require("mongoose");
+var mongoose = require("../config/config.js");
 
 var app = express.Router();
 
@@ -50,6 +50,7 @@ app.get("/scrape", function(req, res) {
     });
     for (var i = 0; i < results.length; i++) {
       if (results[i].title != "") {
+        $("ul").empty();
         db.Article.create(results[i])
           .then(function(db) {
             console.log(db);
