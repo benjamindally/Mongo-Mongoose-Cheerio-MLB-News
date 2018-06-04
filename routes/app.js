@@ -8,17 +8,6 @@ var app = express.Router();
 
 var db = require("../models");
 
-// app.get("/", function(req, res) {
-//   var data = req.body;
-//   articl.all(function(data) {
-//     var hbsObject = {
-//       news: data,
-//     };
-//     res.json(hbsObject);
-//     //res.render("index", hbsObject)
-//   });
-// });
-
 app.get("/scrape", function(req, res) {
   request("https://razzball.com/", function(error, response, html) {
     var $ = cheerio.load(html);
@@ -46,6 +35,7 @@ app.get("/scrape", function(req, res) {
         paragraph: paragraph,
         author: author,
         date: date,
+        saved: false,
       });
     });
     for (var i = 0; i < results.length; i++) {
@@ -75,14 +65,46 @@ app.get("/articles", function(req, res) {
     });
 });
 
+app.get("/saved", function(req, res) {
+  db.Article.find({})
+    .then(function(dbArticle) {
+      var hbsObject = { article: dbArticle };
+      //res.json(hbsObject);
+      res.render("saved", hbsObject);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+});
+
 app.get("/:id", function(req, res) {
   db.Article.findOne({ _id: req.params.id })
     .populate("note")
     .exec(function(err, dbArticle) {
       hbsObject = { article: dbArticle };
-      console.log(dbArticle.note[0].title);
+      // console.log(dbArticle.note[0].title);
       res.render("notes", hbsObject);
     });
+});
+
+app.get("/delete-note/:id", function(req, res) {
+  db.Note.deleteOne({ _id: req.params.id }).exec(function(err, dbNote) {});
+  res.send("delted");
+});
+
+app.get("/save-article/:id", function(req, res) {
+  console.log();
+  db.Article.update({ _id: req.params.id }, { $set: { saved: true } }).exec(
+    function(err, dbNote) {}
+  );
+  res.send("saved");
+});
+
+app.get("/delete-article/:id", function(req, res) {
+  db.Article.update({ _id: req.params.id }, { $set: { saved: false } }).exec(
+    function(err, dbNote) {}
+  );
+  res.send("delted");
 });
 
 app.post("/articles/:id", function(req, res) {

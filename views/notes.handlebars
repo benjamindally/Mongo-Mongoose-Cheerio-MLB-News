@@ -15,7 +15,7 @@
             {{#each article.note}}
             <p>{{this.title}}</p>
             <p>{{this.body}}</p>
-            <button type="button" class="btn btn-primary" id="delete_note {{this.id}}">Delete Note</button>
+            <button type="button" class="btn btn-danger delete_note " id="{{this.id}}">Delete Note</button>
             {{/each}}
         </div>
     </div>

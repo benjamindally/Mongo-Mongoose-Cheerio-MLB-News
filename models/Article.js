@@ -29,6 +29,8 @@ var ArticleSchema = new Schema({
     type: String,
   },
 
+  saved: Boolean,
+
   note: [
     {
       type: Schema.Types.ObjectId,

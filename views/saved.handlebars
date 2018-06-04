@@ -2,8 +2,6 @@
 
     <h1>Fantasy MLB News</h1>
     <h3 class="text-center">Read and Take Notes</h3>
-    <button type="button" class="btn btn-primary" id="scraper">Scrape</button>
-    <button type="button" class="btn btn-primary" id="view_saved">View Saved Articles</button>
 
 </div>
 
@@ -13,9 +11,9 @@
 
         <div class="col-md-8 text-center mx-auto">
             <ul>
-                {{#if article}} {{#each article}}
+                {{#if article}} {{#each article}} {{#if this.saved}}
                 <li class="card">
-                    <p class="title">{{this.title}}</p>
+                    <p>{{this.title}}</p>
                     <p>Author: {{this.author}}</p>
                     <p>Published: {{this.date}}</p>
                     <p>{{this.paragraph}}</p>
@@ -23,19 +21,16 @@
                     <button type="button" value="{{this.id}}" data-title={{this.title}} class="notes btn btn-primary" data-toggle="modal" data-target="#noteModal">
                         Notes
                     </button>
-                    <button type="button" value="{{this.id}}" data-title={{this.title}} class="save_article btn btn-primary">
-                        Save
+                    <button type="button" value="{{this.id}}" data-title={{this.title}} class="delete_article btn btn-danger">
+                        Delete Saved Article
                     </button>
 
                 </li>
-
-
-
-                {{/each}}
+                {{/if}} {{/each}}
 
             </ul>
             {{else}}
-            <h2>Get your scrape on</h2>
+            <h2>No saved articles</h2>
             {{/if}}
         </div>
 
