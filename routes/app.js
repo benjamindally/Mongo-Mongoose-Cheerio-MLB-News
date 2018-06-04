@@ -50,7 +50,6 @@ app.get("/scrape", function(req, res) {
     });
     for (var i = 0; i < results.length; i++) {
       if (results[i].title != "") {
-        $("ul").empty();
         db.Article.create(results[i])
           .then(function(db) {
             console.log(db);
@@ -76,16 +75,13 @@ app.get("/articles", function(req, res) {
     });
 });
 
-app.get("/articles/:id", function(req, res) {
+app.get("/:id", function(req, res) {
   db.Article.findOne({ _id: req.params.id })
     .populate("note")
-    .then(function(dbArticle) {
-      // hbsObject = { article: dbArticle };
-      // console.log(dbArticle);
-      res.json(dbArticle);
-    })
-    .catch(function(err) {
-      res.json(err);
+    .exec(function(err, dbArticle) {
+      hbsObject = { article: dbArticle };
+      console.log(dbArticle.note[0].title);
+      res.render("notes", hbsObject);
     });
 });
 

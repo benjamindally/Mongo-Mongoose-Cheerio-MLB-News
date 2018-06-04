@@ -48,10 +48,17 @@ $(function() {
 
   $("#scraper").on("click", function(event) {
     console.log("scraped");
-    event.preventDefault;
+    event.preventDefault();
     $.ajax({
       mthod: "GET",
       url: "/scrape",
-    }).then(function(data) {});
+    }).then(function(data) {
+      window.location = "/articles";
+    });
+  });
+
+  $("#view_notes").click(function(event) {
+    event.preventDefault();
+    window.location = articleId;
   });
 });
