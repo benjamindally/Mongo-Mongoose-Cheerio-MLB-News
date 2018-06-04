@@ -46,7 +46,7 @@ $(function() {
       method: "GET",
       url: "/scrape",
     }).then(function(data) {
-      window.location = "/articles";
+      window.location = "/";
     });
   });
 
