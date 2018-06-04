@@ -53,7 +53,7 @@ app.get("/scrape", function(req, res) {
   });
 });
 
-app.get("/articles", function(req, res) {
+app.get("/", function(req, res) {
   db.Article.find({})
     .then(function(dbArticle) {
       var hbsObject = { article: dbArticle };
