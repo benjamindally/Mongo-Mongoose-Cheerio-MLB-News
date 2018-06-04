@@ -11,7 +11,7 @@
 
         <div class="col-md-8 text-center mx-auto">
             <ul>
-                {{#each article}} {{#if this.saved}}
+                {{#if article}} {{#each article}} {{#if this.saved}}
                 <li class="card">
                     <p>{{this.title}}</p>
                     <p>Author: {{this.author}}</p>
@@ -25,12 +25,13 @@
                         Delete Saved Article
                     </button>
 
-                </li> {{else}}
-                <h2>No saved articles</h2>
+                </li>
                 {{/if}} {{/each}}
 
             </ul>
-
+            {{else}}
+            <h2>No saved articles</h2>
+            {{/if}}
         </div>
 
 
